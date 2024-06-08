@@ -10,10 +10,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/login" exact component={Login} />
-        <Route path="/callback" component={Callback} />
-        <Route path="/playlists" component={Playlists} />
-        <Route path="/create-playlist" component={NewPlaylist} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/callback" element={<Callback />} />
+        <Route path="/playlists" element={<Playlists />} />
+        <Route path="/create-playlist" element={<NewPlaylist />} />
       </Routes>
     </Router>
   );

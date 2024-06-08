@@ -8,7 +8,7 @@ const Playlists = () => {
     const accessToken = localStorage.getItem('spotify_access_token');
     if (!accessToken) {
       alert('You are not logged in.');
-      window.location.href = '/';
+      window.location.href = 'http://localhost:4000/auth/login';
       return;
     }
 

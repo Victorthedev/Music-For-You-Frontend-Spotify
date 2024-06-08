@@ -14,7 +14,7 @@ const Callback = () => {
         .get(`http://localhost:4000/auth/callback?code=${code}`)
         .then((response) => {
           // Handle successful authentication
-          navigate('http://localhost:4000/playlist');
+          navigate('/playlists');
         })
         .catch((error) => {
           // Handle error
