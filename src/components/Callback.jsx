@@ -14,7 +14,8 @@ const Callback = () => {
         .get(`http://localhost:4000/auth/callback?code=${code}`)
         .then((response) => {
           // Handle successful authentication
-          navigate('http://localhost:4000/playlist');
+          localStorage.setItem('spotify_access_token', response.data.access_token);
+          navigate('/playlists');
         })
         .catch((error) => {
           // Handle error

@@ -1,5 +1,5 @@
-// src/components/TrackSearch.js
-import React, { useState } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 
 const TrackSearch = ({ onSelectTrack }) => {
     const [searchQuery, setSearchQuery] = useState('');

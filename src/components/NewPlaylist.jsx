@@ -1,46 +1,40 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import TrackSearch from './TrackSearch';
 
 const NewPlaylist = () => {
-  const [seedTrackId, setSeedTrackId] = useState('');
-  const [playlistId, setPlaylistId] = useState(null);
+    const [selectedTrackId, setSelectedTrackId] = useState('');
+    const [message, setMessage] = useState('');
 
-  const handleCreatePlaylist = () => {
-    const accessToken = localStorage.getItem('spotify_access_token');
-    if (!accessToken) {
-      alert('You are not logged in.');
-      window.location.href = '/';
-      return;
-    }
+    const handleCreatePlaylist = async () => {
+        const token = localStorage.getItem('spotify_access_token');
+        const userIdResponse = await axios.get('https://api.spotify.com/v1/me', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const userId = userIdResponse.data.id;
 
-    axios.post('http://localhost:4000/playlist/create', { seedTrackId }, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
-    })
-    .then(response => {
-      setPlaylistId(response.data.playlistId);
-      alert('Playlist created successfully!');
-    })
-    .catch(error => {
-      console.error('Error creating playlist:', error);
-      alert('Error creating playlist. Please try again later.');
-    });
-  };
+        const response = await axios.post(
+            'http://localhost:4000/playlist/create',
+            { seedTrackId: selectedTrackId },
+            { params: { userId } }
+        );
 
-  return (
-    <div className="new-playlist-container">
-      <h1>Create a New Playlist</h1>
-      <input 
-        type="text" 
-        value={seedTrackId} 
-        onChange={e => setSeedTrackId(e.target.value)} 
-        placeholder="Enter a seed track ID" 
-      />
-      <button onClick={handleCreatePlaylist}>Create Playlist</button>
-      {playlistId && <p>New playlist created with ID: {playlistId}</p>}
-    </div>
-  );
+        setMessage(response.data.message);
+    };
+
+    return (
+        <div>
+            <TrackSearch onSelectTrack={setSelectedTrackId} />
+            {selectedTrackId && (
+                <div>
+                    <button onClick={handleCreatePlaylist}>Create Playlist</button>
+                </div>
+            )}
+            {message && <p>{message}</p>}
+        </div>
+    );
 };
 
 export default NewPlaylist;
