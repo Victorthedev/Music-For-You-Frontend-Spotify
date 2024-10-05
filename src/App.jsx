@@ -1,27 +1,26 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
-import Login from './components/Login';
-import Playlists from './components/Playlists';
-import NewPlaylist from './components/NewPlaylist';
-import Callback from './components/Callback';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
+import Login from './pages/Login';
 import './App.css';
+import Callback from './components/Callback'; // Update import statement
+import Home from './pages/Home';
+import NewPlaylist from './pages/NewPlaylist';
 
 const App = () => {
   return (
     <BrowserRouter>
       <div>
-          <Routes>
-            <Route path = '/' element = {<Login />} />
-            <Route path = '/login' element = {<Login />} />
-            <Route path = '/callback' element = {<Callback />} />
-            <Route path = '/playlists' element = {<Playlists/>} />
-            <Route path = '/create-playlists' element = {<NewPlaylist/>} />
-          </Routes>
+        <Routes>
+          <Route path='/' element={<LandingPage />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/createplaylist' element={<NewPlaylist />} />
+          <Route path='/callback' element={<Callback />} /> {/* Uncommented Callback route */}
+        </Routes>
       </div>
     </BrowserRouter>
+  );
+};
 
-  )
-}
-
-
-export default App
+export default App;
