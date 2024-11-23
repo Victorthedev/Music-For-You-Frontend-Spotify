@@ -61,3 +61,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent; 
 }
+
+.purple-gradient{
+  background: linear-gradient(269.36deg, #722EBB -3.5%, #933BF0 28.72%, #722EBB 98.15%);
+}

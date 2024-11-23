@@ -15,7 +15,7 @@ const Hero = () => {
 
   return (
     <div
-      className="w-screen h-screen px-6 pt-6 pb-16 flex flex-col justify-between"
+      className="h-screen px-6 pt-6 pb-16 flex flex-col justify-between"
       style={{
         backgroundImage: `url(${heroTop})`,
         backgroundSize: 'cover',
@@ -37,11 +37,11 @@ const Hero = () => {
         className='absolute object-cover w-fit h-screen pointer-events-none left-1/2 -translate-x-1/2' 
         style={{ top: 0 }}
       />
-      <section className='w-[770px] grid gap-2 text-center mx-auto items-center'>
-        <h4 className='capitalize text-7xl font-semibold gradient-background'>
-          seamless vibe matching for your <span className='text-secondary'>playlist!</span>
+      <section className='w-[350px] sm:w-[620px] lg:w-[770px] grid gap-2 text-center mx-auto items-center'>
+        <h4 className='capitalize sm:text-7xl text-[40px] font-semibold text-secondary'>
+          <span className='gradient-background'>seamless vibe matching for your </span>playlist!
         </h4>
-        <p className='text-[#D1D1D1] text-xl font-medium'>
+        <p className='text-[#D1D1D1] text-base md:text-xl font-medium'>
           Connect with your favorite music platforms and discover playlists that flow effortlessly from your favorite tracks.
         </p>
         <LandingBtn

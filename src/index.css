@@ -2,6 +2,7 @@
 
 body {
     font-family: 'Visby', sans-serif;
+    background: #0C0C0C;
   }
 
 @tailwind base;

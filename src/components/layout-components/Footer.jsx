@@ -7,8 +7,9 @@ import Logo from '../layout-components/Logo'
 
 const Footer = () => {
   return (
-    <div className='w-screen h-fit bg-[#0C0C0C] grid gap-10 pt-16'>
-        <div className='flex justify-between w-[75%] mx-auto items-center'>
+    <div className='mx-auto '>
+      <div className=' md:h-fit bg-[#0C0C0C] md:grid md:gap-y-10 pt-16 grid grid-col-1 gap-40 justify-between'>
+        <div className='md:flex md:justify-between w-[92%] grid gap-6 mx-auto items-center'>
             <Logo />
             <p className='text-[#D1D1D1] text-[12px] font-[400]'>© 2024 Groovz. All rights reserved</p>
             <div className='flex w-fit h-fit gap-6'>
@@ -17,7 +18,8 @@ const Footer = () => {
                 <img src={X} className='cursor-pointer'/>
             </div>
         </div>
-        <img src={groovz} alt="" />
+        <img src={groovz} alt="" className='mx-auto w-screen' />
+      </div>
     </div>
   )
 }

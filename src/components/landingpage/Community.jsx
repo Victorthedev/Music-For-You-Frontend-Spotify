@@ -21,8 +21,8 @@ import comm17 from '../../assets/images/comm17.png'
 
 const Community = () => {
   return (
-    <div  className='w-screen h-fit bg-[#0C0C0C] py-20 grid'>
-      <div className="rounded-3xl border border-primary pt-20 pb-6 h-[701px] w-fit mx-auto grid gap-20" style={{
+    <div  className='h-fit bg-[#0C0C0C] py-20 grid'>
+      <div className="rounded-3xl border border-primary pt-20 pb-6 h-[701px] md:h-[701px] w-[92%] sm:w-[95%] md:w-fit mx-auto grid gap-20" style={{
         backgroundImage: 'linear-gradient(180deg, rgba(249, 249, 249, 0.04) 0%, rgba(255, 255, 255, 0) 100%)'
       }}>
         <div className='grid gap-6 text-center'>
@@ -36,27 +36,27 @@ const Community = () => {
             Join
           </LandingBtn>
         </div>
-        <div>
+        <div className='overflow-x-hidden'>
           <div className='flex'>
-            <img src={comm1} className='w-[120px] h-[150px]'/>
-            <img src={comm2} className='w-[150px] h-[150px]'/>
-            <img src={comm3} className='w-[150px] h-[150px]'/>
-            <img src={comm4} className='w-[150px] h-[150px]'/>
-            <img src={comm5} className='w-[150px] h-[150px]'/>
-            <img src={comm6} className='w-[150px] h-[150px]'/>
-            <img src={comm17} className='w-[150px] h-[150px]'/>
-            <img src={comm7} className='w-[100px] h-[150px]'/>
+            <img src={comm1} className='md:w-[120px] w-[86px] h-[86px] md:h-auto'/>
+            <img src={comm2} className='md:w-[150px] w-[86px] h-[86px] md:h-auto'/>
+            <img src={comm3} className='md:w-[150px] w-[86px] h-[86px] md:h-auto'/>
+            <img src={comm4} className='md:w-[150px] w-[86px] h-[86px] md:h-auto'/>
+            <img src={comm5} className='md:w-[150px] w-[86px] h-[86px] md:h-auto'/>
+            <img src={comm6} className='md:w-[150px] w-[86px] h-[86px] md:h-auto'/>
+            <img src={comm17} className='md:w-[150px] h-auto'/>
+            <img src={comm7} className='md:w-[100px] h-auto'/>
           </div>
           <div className='flex'>
-            <img src={comm8} className='w-[40px] h-[150px]'/>
-            <img src={comm9} className='w-[150px] h-[150px]'/>
-            <img src={comm10} className='w-[150px] h-[150px]'/>
-            <img src={comm11} className='w-[150px] h-[150px]'/>
-            <img src={comm12} className='w-[150px] h-[150px]'/>
-            <img src={comm13} className='w-[150px] h-[150px]'/>
-            <img src={comm14} className='w-[150px] h-[150px]'/>
-            <img src={comm15} className='w-[150px] h-[150px]'/>
-            <img src={comm16} className='w-[30px] h-[150px]'/>
+            <img src={comm8} className='w-[40px] h-auto'/>
+            <img src={comm9} className='w-[150px] h-auto'/>
+            <img src={comm10} className='w-[150px] h-auto'/>
+            <img src={comm11} className='w-[150px] h-auto'/>
+            <img src={comm12} className='w-[150px] h-auto'/>
+            <img src={comm13} className='w-[150px] h-auto'/>
+            <img src={comm14} className='w-[150px] h-auto'/>
+            <img src={comm15} className='w-[150px] h-auto'/>
+            <img src={comm16} className='w-[30px] h-auto'/>
           </div>
         </div>
       </div>
