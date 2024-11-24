@@ -9,12 +9,25 @@ const Playlists = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:4000/playlist/', { 
-      withCredentials: true 
+    axios.get('http://localhost:4000/playlist/', {
+      withCredentials: true
     })
     .then(response => {
-      // Set playlists to response.data.items instead of response.data
-      setPlaylists(response.data.items || []);
+      // Handle the new response structure
+      const playlistsData = response.data.playlists?.items || [];
+      const likedSongsData = response.data.likedSongs;
+
+      // Create a "Liked Songs" playlist object
+      const likedSongsPlaylist = {
+        id: 'liked-songs',
+        name: 'Liked Songs',
+        images: [{ url: imgDefault }], // You can use a specific image for liked songs
+        owner: { display_name: 'You' },
+        tracks: likedSongsData
+      };
+
+      // Combine liked songs with other playlists
+      setPlaylists([likedSongsPlaylist, ...playlistsData]);
     })
     .catch(error => {
       console.error('Error fetching playlists:', error);
@@ -55,8 +68,8 @@ const PlaylistCard = ({playlist, onClick}) => {
   return (
     <div className='grid gap-4 cursor-pointer' onClick={onClick}>
       <img 
-        src={playlist.images?.[0]?.url || imgDefault} 
-        alt="" 
+        src={playlist.images?.[0]?.url || imgDefault}
+        alt=""
         className='sm:w-[250px] h-auto rounded-3xl'
       />
       <section className='grid gap-1'>

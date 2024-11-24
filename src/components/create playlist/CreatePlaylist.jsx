@@ -13,17 +13,35 @@ const CreatePlaylist = () => {
   const navigate = useNavigate();
 
   const fetchPlaylistDetails = () => {
-    axios.get(`http://localhost:4000/playlist/${playlistId}`, {
-      withCredentials: true
-    })
-    .then(response => {
-      setPlaylistDetails(response.data.playlist);
-      setSongs(response.data.songs);
-    })
-    .catch(error => {
-      console.error('Error fetching playlist songs:', error);
-      toast.error('Failed to load playlist details');
-    });
+    if (playlistId === 'liked-songs') {
+      axios.get('http://localhost:4000/playlist/liked-songs', {
+        withCredentials: true
+      })
+      .then(response => {
+        setPlaylistDetails({
+          name: 'Liked Songs',
+          images: [{ url: imgDefault }],
+          id: 'liked-songs'
+        });
+        setSongs(response.data.items || []);
+      })
+      .catch(error => {
+        console.error('Error fetching liked songs:', error);
+        toast.error('Failed to load liked songs');
+      });
+    }  else {
+      axios.get(`http://localhost:4000/playlist/${playlistId}`, {
+        withCredentials: true
+      })
+      .then(response => {
+        setPlaylistDetails(response.data.playlist);
+        setSongs(response.data.songs);
+      })
+      .catch(error => {
+        console.error('Error fetching playlist songs:', error);
+        toast.error('Failed to load playlist details');
+      });
+    }
   };
 
   useEffect(() => {
@@ -61,11 +79,15 @@ const CreatePlaylist = () => {
     <Body>
         <div className='min-h-screen grid gap-4'>
             <div className='flex gap-4 h-fit'>
-                <img src={playlistDetails?.images[0]?.url} className='md:h-[140px] md:w-[140px] h-[90px] w-[90px] rounded-2xl my-auto' />
+                <img 
+                  src={playlistDetails?.images[0]?.url || imgDefault} 
+                  className='md:h-[140px] md:w-[140px] h-[90px] w-[90px] rounded-2xl my-auto' 
+                  alt={playlistDetails?.name}
+                />
                 <div className='grid my-auto h-fit gap-1'>
                     <h6 className='text-primary md:text-[32px] text-[24px] font-bold '>{playlistDetails?.name || 'Loading...'}</h6>
                     <div className='flex w-fit gap-1'>
-                        <p className='text-grey text-[14px] font-semibold '>Playlist </p>
+                        <p className='text-grey text-[14px] font-semibold '>{playlistId === 'liked-songs' ? 'Liked Songs' : 'Playlist'} </p>
                         <div className='w-1 h-1 bg-[#8F8F8F] rounded-full m-auto'></div>
                         <p className='text-grey text-[14px] font-semibold '>{songs.length} songs </p>
                     </div>
@@ -74,10 +96,10 @@ const CreatePlaylist = () => {
             <div className='grid gap-8 h-fit'>
             {songs.map(song => (
             <Song 
-              key={song.id}
-              song={song}
-              onSelect={() => handleSelectSong(song.id)}
-              isLoading={loadingSongId === song.id}
+              key={song.id || song.track.id}
+              song={playlistId === 'liked-songs' ? song.track : song}
+              onSelect={() => handleSelectSong(playlistId === 'liked-songs' ? song.track.id : song.id)}
+              isLoading={loadingSongId === (playlistId === 'liked-songs' ? song.track.id : song.id)}
             />
           ))}
             </div>
