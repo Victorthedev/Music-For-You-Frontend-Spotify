@@ -14,7 +14,7 @@ const CreatePlaylist = () => {
 
   const fetchPlaylistDetails = () => {
     if (playlistId === 'liked-songs') {
-      axios.get('https://amvoefu9mk.execute-api.us-east-1.amazonaws.com/prod/playlist/liked-songs', {
+      axios.get('https://groovz-backend-js.onrender.com/playlist/liked-songs', {
         withCredentials: true
       })
       .then(response => {
@@ -30,7 +30,7 @@ const CreatePlaylist = () => {
         toast.error('Failed to load liked songs');
       });
     }  else {
-      axios.get(`https://amvoefu9mk.execute-api.us-east-1.amazonaws.com/prod/playlist/${playlistId}`, {
+      axios.get(`https://groovz-backend-js.onrender.com/playlist/${playlistId}`, {
         withCredentials: true
       })
       .then(response => {
@@ -50,7 +50,7 @@ const CreatePlaylist = () => {
 
   const handleSelectSong = (seedTrackId) => {
     setLoadingSongId(seedTrackId);
-    axios.post('https://amvoefu9mk.execute-api.us-east-1.amazonaws.com/prod/playlist/create', 
+    axios.post('https://groovz-backend-js.onrender.com/prod/playlist/create', 
       { seedTrackId },
       { withCredentials: true }
     )
