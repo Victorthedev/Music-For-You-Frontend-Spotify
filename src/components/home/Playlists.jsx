@@ -9,7 +9,7 @@ const Playlists = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:4000/playlist/', {
+    axios.get('https://amvoefu9mk.execute-api.us-east-1.amazonaws.com/prod/playlist/', {
       withCredentials: true
     })
     .then(response => {

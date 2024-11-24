@@ -14,7 +14,7 @@ const CreatePlaylist = () => {
 
   const fetchPlaylistDetails = () => {
     if (playlistId === 'liked-songs') {
-      axios.get('http://localhost:4000/playlist/liked-songs', {
+      axios.get('https://amvoefu9mk.execute-api.us-east-1.amazonaws.com/prod/playlist/liked-songs', {
         withCredentials: true
       })
       .then(response => {
@@ -30,7 +30,7 @@ const CreatePlaylist = () => {
         toast.error('Failed to load liked songs');
       });
     }  else {
-      axios.get(`http://localhost:4000/playlist/${playlistId}`, {
+      axios.get(`https://amvoefu9mk.execute-api.us-east-1.amazonaws.com/prod/playlist/${playlistId}`, {
         withCredentials: true
       })
       .then(response => {
@@ -50,7 +50,7 @@ const CreatePlaylist = () => {
 
   const handleSelectSong = (seedTrackId) => {
     setLoadingSongId(seedTrackId);
-    axios.post('http://localhost:4000/playlist/create', 
+    axios.post('https://amvoefu9mk.execute-api.us-east-1.amazonaws.com/prod/playlist/create', 
       { seedTrackId },
       { withCredentials: true }
     )

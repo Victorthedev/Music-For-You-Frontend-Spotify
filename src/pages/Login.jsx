@@ -13,7 +13,7 @@ const Login = () => {
 
   const handleSpotifyLogin = () => {
 
-    window.location.href = 'http://localhost:4000/auth/login'; 
+    window.location.href = 'https://amvoefu9mk.execute-api.us-east-1.amazonaws.com/prod/auth/login'; 
 };
 
   // const handleSpotifyLogin = () => {
