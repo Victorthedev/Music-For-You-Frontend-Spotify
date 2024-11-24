@@ -12,15 +12,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSpotifyLogin = () => {
-    // Redirect to Spotify login page
-    // window.location.href = 'http://localhost:4000/auth/login'; 
 
-    // After successful Spotify login, navigate to '/playlists'
-    // Simulating successful login for demonstration purposes
-    // You may need to handle the actual authentication flow here
-    setTimeout(() => {
-        navigate('/home');
-    }, 1000); // Navigate to '/playlists' after 2 seconds (adjust as needed)
+    window.location.href = 'http://localhost:4000/auth/login'; 
 };
 
   // const handleSpotifyLogin = () => {

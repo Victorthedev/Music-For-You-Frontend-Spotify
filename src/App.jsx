@@ -15,8 +15,8 @@ const App = () => {
           <Route path='/' element={<LandingPage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/home' element={<Home />} />
-          <Route path='/createplaylist' element={<NewPlaylist />} />
-          <Route path='/callback' element={<Callback />} /> {/* Uncommented Callback route */}
+          <Route path='/createplaylist/:playlistId' element={<NewPlaylist />} />
+          {/* <Route path='/callback' element={<Callback />} /> */}
         </Routes>
       </div>
     </BrowserRouter>
