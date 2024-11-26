@@ -50,7 +50,7 @@ const CreatePlaylist = () => {
 
   const handleSelectSong = (seedTrackId) => {
     setLoadingSongId(seedTrackId);
-    axios.post('https://groovz-backend-js.onrender.com/playlist/create', 
+    axios.post('https://groovz-backend-js.onrender.com/playlist/create?userId=${userProfile.id}', 
       { seedTrackId },
       { withCredentials: true }
     )
