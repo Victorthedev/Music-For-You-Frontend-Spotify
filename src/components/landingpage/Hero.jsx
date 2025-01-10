@@ -23,7 +23,7 @@ const Hero = () => {
         position: 'relative',
       }}
     >
-      <div className='flex justify-between items-center h-fit'>
+      <div className='flex justify-between items-center h-fit w-[92%] max-w-[1288px] mx-auto'>
         <h5 className='text-primary text-xl font-medium'>Discover</h5>
         <Logo />  
         <GlassBtn
@@ -32,12 +32,18 @@ const Hero = () => {
           sign in
         </GlassBtn>
       </div>
+      {/* <img 
+        src={shadow} 
+        className='absolute object-cover w-fit h-screen pointer-events-none left-1/2 -translate-x-1/2' 
+        style={{ top: 0 }}
+      /> */}
       <img 
         src={shadow} 
         className='absolute object-cover w-fit h-screen pointer-events-none left-1/2 -translate-x-1/2' 
         style={{ top: 0 }}
       />
-      <section className='w-[350px] sm:w-[620px] lg:w-[770px] grid gap-2 text-center mx-auto items-center'>
+      {/* <div class="w-[2000px] fix h-[15023.81px] origin-top-left rotate-[-30deg] opacity-80 bg-black"></div> */}
+      <section className='w-[340px] sm:w-[620px] lg:w-[770px] grid gap-2 text-center mx-auto items-center'>
         <h4 className='capitalize sm:text-7xl text-[40px] font-semibold text-secondary'>
           <span className='gradient-background'>seamless vibe matching for your </span>playlist!
         </h4>

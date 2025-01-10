@@ -16,42 +16,22 @@ const Login = () => {
     window.location.href = 'https://groovz-backend-js.onrender.com/auth/login'; 
 };
 
-  // const handleSpotifyLogin = () => {
-  //   window.location.href = 'http://localhost:4000/auth/login'; 
-  // };
-
   return (
-    <div className="h-screen bg-[#0C0C0C] py-6 lg:pr-6 pr-0 flex lg:flex-row flex-col-reverse">
+    <div className="h-screen bg-[#0C0C0C] lg:pr-6 pr-0 flex lg:flex-row flex-col-reverse max-w-[1440px] mx-auto gap-8 lg:gap-0 lg:pb-0 pb-12">
 
       <img src={shadow} className='object-cover w-full h-full fixed pointer-events-none' />
       
-      <div className="lg:w-[45%] w-[92%] flex flex-col justify-between lg:px-20 mx-auto">
-        <div className='lg:visible invisible'>
-          <Logo />
-        </div>
-        
-        <section className="grid gap-10 h-fit">
-
-          {/* <h2 className="text-5xl font-semibold text-primary">Sign up</h2> */}
-
-          <section className="grid gap-6 w-full">
-            <LoginBtn 
-              image={spotify}
-              onClick={handleSpotifyLogin} 
-            />
-            
-            {/* <LoginBtn image={deezer} />
-            <LoginBtn image={appple} /> */}
-
-          </section>
-        </section>
-        
-        <p className="text-base font-semibold text-primary h-fit lg:block hidden">
-          Already using Groovz? <span className="text-secondary cursor-pointer">Sign in here</span>
-        </p>
+      <div className="lg:w-[45%] w-[92%] flex flex-col gap-12 lg:px-20 m-auto h-fit">
+          <div className='lg:block hidden w-fit mx-auto'>
+            <Logo />
+          </div>
+          <LoginBtn 
+            image={spotify}
+            onClick={handleSpotifyLogin} 
+          />
       </div>
       
-      <div className="flex-1 h-full rounded-2xl relative lg:w-full w-[92%] min-w-[350px] mx-auto" style={{ backgroundImage: `url(${signIn})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className="flex-1 lg:h-[95%] h-[72%] rounded-2xl relative lg:w-full w-[92%] m-auto" style={{ backgroundImage: `url(${signIn})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className='w-[65%] min-w-[300px] absolute bottom-0 left-0 p-4'>
           <h3 className='capitalize sm:text-6xl text-3xl font-semibold text-primary'>unlock your perfect</h3>
           <h3 className='capitalize sm:text-6xl text-3xl font-semibold text-secondary mb-2'>playlist</h3>

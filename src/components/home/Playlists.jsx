@@ -44,12 +44,27 @@ const Playlists = () => {
   return (
     <Body>
       <div className='min-h-screen grid gap-6'>
-        <section className='w-full text-center bg-[#1E1E1E] py-20 rounded-2xl'>
+
+        {/* <section className='w-full h-[] text-center bg-[#1E1E1E] py-20 rounded-2xl'>
           <h2 className='text-primary md:text-4xl text-[28px] font-bold'>Google Adsense Ads</h2>
-        </section>
+        </section> */}
+
         <section className='rounded-2xl w-full h-fit grid gap-8'>
-          <h3 className='md:text-3xl text-[24px] font-bold text-primary'>Playlists</h3>
-          <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 sm:gap-6 gap-9 h-fit'>
+
+          <div className='w-[100%] border-b border-[#55667a] flex gap-2 h-fit'>
+
+            <div className="h-[36px] sm:w-fit cursor-pointer w-full px-4 py-2 border-b-2 border-[#a962f3]">
+              <h4 className="text-center text-[#a962f3] text-base font-medium">Groovz</h4>
+            </div>
+  
+            <div className="h-9 px-4 sm:w-fit cursor-pointer w-full py-2 rounded-lg justify-center items-center gap-3 inline-flex">
+              <div className="text-center text-[#55667a] text-base font-normal">Spotify</div>
+            </div>
+          
+          </div>
+
+          <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 h-fit'>
+          
             {playlists.map(playlist => (
               <PlaylistCard 
                 key={playlist.id}
@@ -57,6 +72,7 @@ const Playlists = () => {
                 onClick={() => handlePlaylistClick(playlist.id)}
               />
             ))}
+
           </div>
         </section>
       </div>
@@ -66,17 +82,22 @@ const Playlists = () => {
 
 const PlaylistCard = ({playlist, onClick}) => {
   return (
-    <div className='grid gap-4 cursor-pointer' onClick={onClick}>
+    <div className='grid gap-4 cursor-pointer fix w-full max-w-[200px] onClick={onClick}'>
       <img 
         src={playlist.images?.[0]?.url || imgDefault}
         alt=""
-        className='sm:w-[250px] h-auto rounded-3xl'
+        className='w-full h-[154px] rounded-3xl fix'
       />
-      <section className='grid gap-1'>
-        <h6 className='text-primary text-[14px] font-semibold w-30'>
+      <section className='grid gap-1 fix'>
+        <h6 className='text-primary text-[14px] font-semibold truncate w-full'
+          style={{ maxWidth: '200px' }}
+        >
           {playlist.name}
         </h6>
-        <p className='text-grey text-[14px] font-semibold w-30'>
+        <p
+          className="text-grey text-[14px] font-semibold truncate w-full"
+          style={{ maxWidth: '200px' }}
+        >
           by {playlist.owner?.display_name}
         </p>
       </section>
