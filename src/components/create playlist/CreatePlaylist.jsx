@@ -14,7 +14,7 @@ const CreatePlaylist = () => {
 
   const fetchPlaylistDetails = () => {
     if (playlistId === 'liked-songs') {
-      axios.get('https://groovz-backend-js.onrender.com/playlist/liked-songs', {
+      axios.get('http://localhost:3000/library/liked-songs', {
         withCredentials: true
       })
       .then(response => {
@@ -23,23 +23,34 @@ const CreatePlaylist = () => {
           images: [{ url: imgDefault }],
           id: 'liked-songs'
         });
-        setSongs(response.data.items || []);
+        setSongs(response.data || []); 
       })
       .catch(error => {
         console.error('Error fetching liked songs:', error);
         toast.error('Failed to load liked songs');
+        if (error.response?.status === 401) {
+          navigate('/login');
+        }
       });
-    }  else {
-      axios.get(`https://groovz-backend-js.onrender.com/playlist/${playlistId}`, {
+    } else {
+      axios.get(`http://localhost:3000/library/${playlistId}`, {
         withCredentials: true
       })
       .then(response => {
-        setPlaylistDetails(response.data.playlist);
-        setSongs(response.data.songs);
+        const tracks = response.data || []; 
+        setPlaylistDetails({
+          name: tracks[0]?.track?.album?.name || 'Playlist',
+          images: [{ url: tracks[0]?.track?.album?.images[0]?.url || imgDefault }],
+          id: playlistId
+        });
+        setSongs(tracks);
       })
       .catch(error => {
         console.error('Error fetching playlist songs:', error);
         toast.error('Failed to load playlist details');
+        if (error.response?.status === 401) {
+          navigate('/login');
+        }
       });
     }
   };
@@ -48,10 +59,19 @@ const CreatePlaylist = () => {
     fetchPlaylistDetails();
   }, [playlistId]);
 
-  const handleSelectSong = (seedTrackId) => {
-    setLoadingSongId(seedTrackId);
-    axios.post('https://groovz-backend-js.onrender.com/playlist/create?userId=${userProfile.id}', 
-      { seedTrackId },
+  const handleSelectSong = (song) => {
+    const songId = playlistId === 'liked-songs' ? song.track?.id : song.id;
+    setLoadingSongId(songId);
+    
+    // Prepare the song data as expected by the backend
+    const songData = {
+      id: songId,
+      name: playlistId === 'liked-songs' ? song.track?.name : song.name,
+      artists: playlistId === 'liked-songs' ? song.track?.artists : song.artists
+    };
+  
+    axios.post('http://localhost:3000/playlist/create', 
+      { songData },
       { withCredentials: true }
     )
     .then(response => {
@@ -59,8 +79,7 @@ const CreatePlaylist = () => {
         duration: 3000,
         position: 'bottom-left',
       });
-      fetchPlaylistDetails(); 
-      navigate('/home'); 
+      navigate('/home');
     })
     .catch(error => {
       console.error('Error creating playlist:', error);
@@ -68,11 +87,14 @@ const CreatePlaylist = () => {
         duration: 3000,
         position: 'bottom-left',
       });
+      if (error.response?.status === 401) {
+        navigate('/login');
+      }
     })
     .finally(() => {
       setLoadingSongId(null);
     });
-  };
+  };  
 
   return (
     <>
@@ -95,13 +117,13 @@ const CreatePlaylist = () => {
             </div>
             <div className='grid gap-8 h-fit'>
             {songs.map(song => (
-            <Song 
-              key={song.id || song.track.id}
-              song={playlistId === 'liked-songs' ? song.track : song}
-              onSelect={() => handleSelectSong(playlistId === 'liked-songs' ? song.track.id : song.id)}
-              isLoading={loadingSongId === (playlistId === 'liked-songs' ? song.track.id : song.id)}
-            />
-          ))}
+              <Song 
+                key={playlistId === 'liked-songs' ? song.track?.id : song.id}
+                song={playlistId === 'liked-songs' ? song.track : song.track}
+                onSelect={() => handleSelectSong(song)}
+                isLoading={loadingSongId === (playlistId === 'liked-songs' ? song.track?.id : song.id)}
+              />
+            ))}
             </div>
         </div>
     </Body>
@@ -110,6 +132,8 @@ const CreatePlaylist = () => {
 }
 
 const Song = ({ song, onSelect, isLoading }) => {
+  if (!song) return null;  // Add safety check
+  
   return (
     <div 
       className='flex justify-between p-2 hover:bg-gray-100 rounded cursor-pointer'
@@ -117,13 +141,13 @@ const Song = ({ song, onSelect, isLoading }) => {
     >
         <div className='flex md:gap-4 gap-2 h-fit w-fit'>
             <img 
-              src={song.album?.images[0]?.url} 
+              src={song?.album?.images?.[0]?.url || imgDefault} 
               className='h-auto w-[60px] rounded-2xl' 
-              alt={song.name}
+              alt={song?.name || 'Song'}
             />
             <div className='h-fit w-fit gap-1 m-auto'>
-                <h6 className='text-primary text-[14px] font-semibold w-30'>{song.name}</h6>
-                <p className='text-grey text-[14px] font-semibold w-30'>{song.artists[0]?.name}</p>
+                <h6 className='text-primary text-[14px] font-semibold w-30'>{song?.name || 'Untitled'}</h6>
+                <p className='text-grey text-[14px] font-semibold w-30'>{song?.artists?.[0]?.name || 'Unknown Artist'}</p>
             </div>
         </div>
         <button 

@@ -13,7 +13,7 @@ const Login = () => {
 
   const handleSpotifyLogin = () => {
 
-    window.location.href = 'https://groovz-backend-js.onrender.com/auth/login'; 
+    window.location.href = 'http://localhost:3000/auth/spotify'; 
 };
 
   return (

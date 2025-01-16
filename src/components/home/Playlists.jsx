@@ -9,28 +9,33 @@ const Playlists = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('https://groovz-backend-js.onrender.com/playlist/', {
+    // First, get the playlists
+    axios.get('http://localhost:3000/library', {
       withCredentials: true
     })
-    .then(response => {
-      // Handle the new response structure
-      const playlistsData = response.data.playlists?.items || [];
-      const likedSongsData = response.data.likedSongs;
-
-      // Create a "Liked Songs" playlist object
-      const likedSongsPlaylist = {
-        id: 'liked-songs',
-        name: 'Liked Songs',
-        images: [{ url: imgDefault }], // You can use a specific image for liked songs
-        owner: { display_name: 'You' },
-        tracks: likedSongsData
-      };
-
-      // Combine liked songs with other playlists
-      setPlaylists([likedSongsPlaylist, ...playlistsData]);
+    .then(playlistsResponse => {
+      // Then get liked songs
+      return axios.get('http://localhost:3000/library/liked-songs', {
+        withCredentials: true
+      })
+      .then(likedSongsResponse => {
+        // Create liked songs playlist object
+        const likedSongsPlaylist = {
+          id: 'liked-songs',
+          name: 'Liked Songs',
+          images: [{ url: imgDefault }],
+          owner: { display_name: 'Your Library' }
+        };
+        
+        // Combine with regular playlists
+        setPlaylists([
+          likedSongsPlaylist,
+          ...(playlistsResponse.data || [])
+        ]);
+      });
     })
     .catch(error => {
-      console.error('Error fetching playlists:', error);
+      console.error('Error fetching library:', error);
       if (error.response?.status === 401) {
         navigate('/login');
       }
@@ -87,6 +92,7 @@ const PlaylistCard = ({playlist, onClick}) => {
         src={playlist.images?.[0]?.url || imgDefault}
         alt=""
         className='w-full h-[154px] rounded-3xl fix'
+        onClick={onClick}
       />
       <section className='grid gap-1 fix'>
         <h6 className='text-primary text-[14px] font-semibold truncate w-full'
